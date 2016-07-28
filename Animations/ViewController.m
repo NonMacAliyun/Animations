@@ -6,6 +6,8 @@
 //  Copyright © 2016 NonMac. All rights reserved.
 //
 
+#define InOutScale (0.58)
+#define M_SQRT3 sqrtf(3.0) //√3（根号3）
 #import "ViewController.h"
 
 @interface ViewController ()
@@ -19,6 +21,62 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self palyAndPauseWithCenter:CGPointMake(200, 200) buttonLength:100 lineWidth:10];
+}
+
+- (void)palyAndPauseWithCenter:(CGPoint)center buttonLength:(CGFloat)length lineWidth:(CGFloat)lineWidth {
+    CGFloat outterRadius = length / 2.0;
+    CGFloat innerRadius = outterRadius * InOutScale;
+    CGFloat innerTriangleBorderLength = innerRadius * M_SQRT3;//三角形边长
+    
+    //三角形上、下、右边的顶点坐标
+    CGPoint triangleUpPoint = CGPointMake(center.x - innerRadius/2, center.y - innerTriangleBorderLength/2);
+    CGPoint triangleDownPoint = CGPointMake(center.x - innerRadius/2, center.y + innerTriangleBorderLength/2);
+    CGPoint triangleRightPoint = CGPointMake(center.x + innerRadius, center.y);
+    
+    
+    //构建播放按钮路径
+    UIBezierPath *playPath = [UIBezierPath bezierPath];
+    [playPath moveToPoint:triangleUpPoint];
+    [playPath addLineToPoint:triangleDownPoint];
+    [playPath addLineToPoint:triangleRightPoint];
+    [playPath addLineToPoint:triangleUpPoint];
+    [playPath addLineToPoint:triangleDownPoint];
+    [playPath addLineToPoint:triangleRightPoint];
+//    [playPath closePath];
+    
+    //设置三角形layer
+    CAShapeLayer *triangleLayer = [CAShapeLayer layer];
+    triangleLayer.path = playPath.CGPath;
+    triangleLayer.lineWidth = lineWidth;
+    triangleLayer.lineCap = kCALineCapRound;
+    triangleLayer.lineJoin = kCALineJoinRound;
+    triangleLayer.strokeColor = [UIColor cyanColor].CGColor;
+    triangleLayer.fillColor = [UIColor clearColor].CGColor;
+    
+    triangleLayer.strokeStart = 0;
+    triangleLayer.strokeEnd = 0.2;
+    [self.view.layer addSublayer:triangleLayer];
+    
+    CABasicAnimation *animation1 = [CABasicAnimation animationWithKeyPath:@"strokeStart"];
+    animation1.fromValue = @0;
+    animation1.toValue = @0.4;
+    animation1.duration = 4;
+    animation1.repeatCount = MAXFLOAT;
+    
+    
+    
+    CABasicAnimation *animation2 = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+    animation2.fromValue = @0.2;
+    animation2.toValue = @1;
+    animation2.duration = 4;
+    animation2.repeatCount = MAXFLOAT;
+    
+//    [triangleLayer addAnimation:animation1 forKey:@"headAnimation"];
+//    [triangleLayer addAnimation:animation2 forKey:@"Animation"];
+}
+
+- (void)dialogFrame {
     self.squarePath = [UIBezierPath bezierPath];
     [self.squarePath moveToPoint:CGPointMake(250, 30)];
     [self.squarePath addLineToPoint:CGPointMake(240, 35)];
