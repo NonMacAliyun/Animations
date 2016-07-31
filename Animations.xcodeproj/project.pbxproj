@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F896CFB61D4C37680042DB85 /* CAAnimation+SettingMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = F896CFB51D4C37680042DB85 /* CAAnimation+SettingMethods.m */; };
 		FAEB15D31D49DD41007DBA02 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB15D21D49DD41007DBA02 /* main.m */; };
 		FAEB15D61D49DD41007DBA02 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB15D51D49DD41007DBA02 /* AppDelegate.m */; };
 		FAEB15D91D49DD41007DBA02 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB15D81D49DD41007DBA02 /* ViewController.m */; };
@@ -16,6 +17,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F896CFB41D4C37680042DB85 /* CAAnimation+SettingMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CAAnimation+SettingMethods.h"; path = "Animations/Category/CAAnimation+SettingMethods.h"; sourceTree = "<group>"; };
+		F896CFB51D4C37680042DB85 /* CAAnimation+SettingMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CAAnimation+SettingMethods.m"; path = "Animations/Category/CAAnimation+SettingMethods.m"; sourceTree = "<group>"; };
+		F896CFB71D4C39E90042DB85 /* Headers.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Headers.pch; sourceTree = "<group>"; };
 		FAEB15CE1D49DD41007DBA02 /* Animations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Animations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAEB15D21D49DD41007DBA02 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FAEB15D41D49DD41007DBA02 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -39,6 +43,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F896CFB31D4C372E0042DB85 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				F896CFB41D4C37680042DB85 /* CAAnimation+SettingMethods.h */,
+				F896CFB51D4C37680042DB85 /* CAAnimation+SettingMethods.m */,
+			);
+			name = Category;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		FAEB15C51D49DD41007DBA02 = {
 			isa = PBXGroup;
 			children = (
@@ -58,6 +72,7 @@
 		FAEB15D01D49DD41007DBA02 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
+				F896CFB31D4C372E0042DB85 /* Category */,
 				FAEB15D41D49DD41007DBA02 /* AppDelegate.h */,
 				FAEB15D51D49DD41007DBA02 /* AppDelegate.m */,
 				FAEB15D71D49DD41007DBA02 /* ViewController.h */,
@@ -75,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				FAEB15D21D49DD41007DBA02 /* main.m */,
+				F896CFB71D4C39E90042DB85 /* Headers.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -149,6 +165,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F896CFB61D4C37680042DB85 /* CAAnimation+SettingMethods.m in Sources */,
 				FAEB15D91D49DD41007DBA02 /* ViewController.m in Sources */,
 				FAEB15D61D49DD41007DBA02 /* AppDelegate.m in Sources */,
 				FAEB15D31D49DD41007DBA02 /* main.m in Sources */,
@@ -265,6 +282,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Animations/Headers.pch";
 				INFOPLIST_FILE = Animations/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -277,6 +296,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Animations/Headers.pch";
 				INFOPLIST_FILE = Animations/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
