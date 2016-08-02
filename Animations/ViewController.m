@@ -21,6 +21,11 @@
  */
 
 @interface ViewController ()
+//IBAction
+@property (weak, nonatomic) IBOutlet UISlider *slider;
+@property (weak, nonatomic) IBOutlet UILabel *sliderNum;
+@property (nonatomic, strong) CAShapeLayer *currentLayer;
+
 
 @property (nonatomic, strong) UIBezierPath *squarePath;
 
@@ -143,7 +148,7 @@
                                                fillColor:[UIColor clearColor]
                                              strokeStart:0
                                                strokeEnd:CGFloatNULL];//0.2];
-//    [self.view.layer addSublayer:pauseLeftLayer];
+    [self.view.layer addSublayer:pauseLeftLayer];
     
     //暂停按钮 暂停→播放状态 右边竖线
     CAShapeLayer *pauseRightLayer = [self shapeLayerWithPath:pauseRightPath
@@ -151,8 +156,9 @@
                                              strokeColor:[UIColor purpleColor]
                                                fillColor:[UIColor clearColor]
                                              strokeStart:0
-                                               strokeEnd:CGFloatNULL];//0.2];
+                                               strokeEnd:0.143];//0.2];
     [self.view.layer addSublayer:pauseRightLayer];
+    self.currentLayer = pauseRightLayer;
     
     
 #pragma mark - Animation
@@ -250,9 +256,38 @@
                                                          timeFunction:nil];
     
     
-//    [pauseLLayer addAnimation:animation1 forKey:@"headAnimation"];
-//    [pauseLLayer addAnimation:animation2 forKey:@"Animation"];
-//    [pauseLLayer addAnimation:animation3 forKey:@"AnimationRotation"];
+    [pauseLeftLayer addAnimation:ani_LV1 forKey:@"headAnimation"];
+    [pauseLeftLayer addAnimation:ani_LV2 forKey:@"Animation"];
+//    [pauseLeftLayer addAnimation:ani_LV3 forKey:@"AnimationRotation"];
+    
+    
+    
+    
+    //暂停按钮 右边竖线 暂停→播放状态 动画
+    CABasicAnimation *ani_RV1 = [CAAnimation getBasicAniForKeypath:@"strokeStart"
+                                                              from:@0
+                                                                to:@0.2
+                                                          duration:1
+                                                           reapeat:NO
+                                                      timeFunction:nil];
+    
+    CABasicAnimation *ani_RV2 = [CAAnimation getBasicAniForKeypath:@"strokeEnd"
+                                                              from:@0.143
+                                                                to:@1
+                                                          duration:1
+                                                           reapeat:NO
+                                                      timeFunction:nil];
+    
+//    CABasicAnimation *ani_RV3 = [CAAnimation getBasicAniForKeypath:@"transform.rotation.x"
+//                                                              from:@0
+//                                                                to:@M_PI
+//                                                          duration:5
+//                                                           reapeat:NO
+//                                                      timeFunction:nil];
+    CAAnimationGroup *aniGroup = [self getAniGroupWithArr:@[ani_RV1, ani_RV2]
+                                                 duration:totalTime + 2
+                                                   repeat:YES];
+    [pauseRightLayer addAnimation:aniGroup forKey:@"werwer"];
 }
 
 - (CAShapeLayer *)shapeLayerWithPath:(UIBezierPath *)path lineWidth:(CGFloat)lineWidth strokeColor:(UIColor *)strokeColor fillColor:(UIColor *)fillColor strokeStart:(CGFloat)start strokeEnd:(CGFloat)end {
@@ -342,6 +377,13 @@
     animation2.fromValue = @0.01;
     animation2.toValue = @1;
     [layer2 addAnimation:animation2 forKey:@"head2Animation"];
+}
+
+- (IBAction)sliderChanged:(UISlider *)sender {
+    self.sliderNum.text = [NSString stringWithFormat:@"%f", sender.value];
+    if (self.currentLayer) {
+        self.currentLayer.strokeEnd = sender.value;
+    }
 }
 
 @end
