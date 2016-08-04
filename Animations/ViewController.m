@@ -35,6 +35,15 @@
 //暂停→播放（左、右两个竖线）
 @property (nonatomic, strong) UIBezierPath *leftVLine, *rightVLine;
 
+//PlayPause Button Animation Group
+@property (nonatomic ,strong) CAAnimationGroup *circleAni, *triangleAni, *leftAni, *rightAni;
+@property (nonatomic ,strong) CALayer *circleLay, *triangleLay, *leftLay, *rightLay;
+
+
+@property (nonatomic, assign) int status;
+@property (nonatomic, strong) NSArray *playToPause, *pauseToPlay;
+@property (nonatomic, strong) CAAnimationGroup *ggggg;
+
 @end
 
 @implementation ViewController
@@ -43,10 +52,15 @@
     [super viewDidLoad];
     
     [self playAndPauseWithCenter:CGPointMake(200, 200) buttonLength:100 lineWidth:10];
+    
+    
+    self.status = 0;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeStatus)];
+    [self.view addGestureRecognizer:tap];
 }
 
+double totalTime = 1.3;
 - (void)playAndPauseWithCenter:(CGPoint)center buttonLength:(CGFloat)length lineWidth:(CGFloat)lineWidth {
-    double totalTime = 1.3;
     
     CGFloat outterRadius = length / 2.0;
     CGFloat innerRadius = outterRadius * InOutScale;
@@ -127,7 +141,8 @@
                                                      fillColor:[UIColor clearColor]
                                                    strokeStart:0
                                                      strokeEnd:0.65];
-//    [self.view.layer addSublayer:outterCircleLayer];
+    self.circleLay = outterCircleLayer;
+    [self.view.layer addSublayer:outterCircleLayer];
     
     
     //播放按钮 内部三角形 layer
@@ -138,27 +153,32 @@
                    fillColor:[UIColor clearColor]
                  strokeStart:0
                    strokeEnd:0.62];
-//    [self.view.layer addSublayer:innerTriangle];
+    self.triangleLay = innerTriangle;
+    [self.view.layer addSublayer:innerTriangle];
     
     
     //暂停按钮 暂停→播放状态 左边竖线
     CAShapeLayer *pauseLeftLayer = [self shapeLayerWithPath:pauseLeftPath
                                                lineWidth:lineWidth
-                                             strokeColor:[UIColor purpleColor]
+                                             strokeColor:[UIColor cyanColor]
                                                fillColor:[UIColor clearColor]
                                              strokeStart:0
                                                strokeEnd:CGFloatNULL];//0.2];
+    self.leftLay = pauseLeftLayer;
     [self.view.layer addSublayer:pauseLeftLayer];
     
     //暂停按钮 暂停→播放状态 右边竖线
     CAShapeLayer *pauseRightLayer = [self shapeLayerWithPath:pauseRightPath
                                                lineWidth:lineWidth
-                                             strokeColor:[UIColor purpleColor]
+                                             strokeColor:[UIColor cyanColor]
                                                fillColor:[UIColor clearColor]
                                              strokeStart:0
                                                strokeEnd:0.143];//0.2];
+    self.rightLay = pauseRightLayer;
     [self.view.layer addSublayer:pauseRightLayer];
     self.currentLayer = pauseRightLayer;
+    self.playToPause = @[outterCircleLayer, innerTriangle];
+    self.pauseToPlay = @[pauseLeftLayer, pauseRightLayer];
     
     
 #pragma mark - Animation
@@ -197,11 +217,21 @@
                           timeFunction:kCAMediaTimingFunctionDefault];
     ani_triangle4.beginTime = totalTime - 0.5;
     
+    CAAnimation *ani_triangle5 =
+    [CAAnimation getBasicAniForKeypath:@"hidden"
+                                  from:@NO
+                                    to:@YES
+                              duration:0.1
+                               reapeat:NO
+                          timeFunction:nil];
+    ani_triangle4.beginTime = totalTime;
     
-    CAAnimationGroup *agroup = [self getAniGroupWithArr:@[ani_triangle1, ani_triangle2, ani_triangle3, ani_triangle4]
+    
+    CAAnimationGroup *triangleAniGroup = [self getAniGroupWithArr:@[ani_triangle1, ani_triangle2, ani_triangle3, ani_triangle4]//, ani_triangle5]
                                                duration:totalTime + 2
-                                                 repeat:YES];
-    [innerTriangle addAnimation:agroup forKey:@"group"];
+                                                 repeat:NO];
+    self.triangleAni = triangleAniGroup;
+    [innerTriangle addAnimation:triangleAniGroup forKey:@"group"];
     
     
     //播放按钮 外部圆形 播放→暂停状态 动画
@@ -227,38 +257,49 @@
                                                                reapeat:NO
                                                           timeFunction:kCAMediaTimingFunctionEaseOut];
     
-    CAAnimationGroup *aniGroup_circle = [self getAniGroupWithArr:@[ani_circle1, ani_circle2, ani_circle3]
+    CAAnimation *ani_circle4 = [CAAnimation getBasicAniForKeypath:@"hidden"
+                                                             from:@NO
+                                                               to:@YES
+                                                         duration:0.1
+                                                          reapeat:NO
+                                                     timeFunction:nil];
+    ani_circle4.beginTime = totalTime;
+    
+    CAAnimationGroup *aniGroup_circle = [self getAniGroupWithArr:@[ani_circle1, ani_circle2, ani_circle3]//, ani_circle4]
                                                         duration:totalTime + 2
-                                                          repeat:YES];
-    [outterCircleLayer addAnimation:aniGroup_circle forKey:@"group"];
+                                                          repeat:NO];
+    self.circleAni = aniGroup_circle;
+    [outterCircleLayer addAnimation:aniGroup_circle forKey:@"aniGroup_circle"];
     
     
     //暂停按钮 左边竖线 暂停→播放状态 动画
     CABasicAnimation *ani_LV1 = [CAAnimation getBasicAniForKeypath:@"strokeStart"
                                                                 from:@0
                                                                   to:@0.4
-                                                            duration:1
+                                                            duration:totalTime
                                                              reapeat:NO
                                                         timeFunction:nil];
     
     CABasicAnimation *ani_LV2 = [CAAnimation getBasicAniForKeypath:@"strokeEnd"
                                                                  from:@0.2
                                                                    to:@1
-                                                             duration:1
+                                                             duration:totalTime
                                                               reapeat:NO
                                                          timeFunction:nil];
     
-    CABasicAnimation *ani_LV3 = [CAAnimation getBasicAniForKeypath:@"transform.rotation.x"
-                                                                 from:@0
-                                                                   to:@M_PI
-                                                             duration:5
-                                                              reapeat:NO
-                                                         timeFunction:nil];
+    CAAnimation *ani_LV3 = [CAAnimation getBasicAniForKeypath:@"hidden"
+                                                         from:@NO
+                                                           to:@YES
+                                                     duration:0.1
+                                                      reapeat:NO
+                                                 timeFunction:nil];
+    ani_LV3.beginTime = totalTime;
     
-    
-    [pauseLeftLayer addAnimation:ani_LV1 forKey:@"headAnimation"];
-    [pauseLeftLayer addAnimation:ani_LV2 forKey:@"Animation"];
-//    [pauseLeftLayer addAnimation:ani_LV3 forKey:@"AnimationRotation"];
+    CAAnimationGroup *pauseLeftAniGroup = [self getAniGroupWithArr:@[ani_LV1, ani_LV2]//, ani_LV3]
+                                                          duration:totalTime + 2
+                                                            repeat:NO];
+    self.leftAni = pauseLeftAniGroup;
+    [pauseLeftLayer addAnimation:pauseLeftAniGroup forKey:@"pauseLeftAniGroup"];
     
     
     
@@ -267,14 +308,14 @@
     CABasicAnimation *ani_RV1 = [CAAnimation getBasicAniForKeypath:@"strokeStart"
                                                               from:@0
                                                                 to:@0.2
-                                                          duration:1
+                                                          duration:totalTime
                                                            reapeat:NO
                                                       timeFunction:nil];
     
     CABasicAnimation *ani_RV2 = [CAAnimation getBasicAniForKeypath:@"strokeEnd"
                                                               from:@0.143
                                                                 to:@1
-                                                          duration:1
+                                                          duration:totalTime
                                                            reapeat:NO
                                                       timeFunction:nil];
     
@@ -283,11 +324,26 @@
 //                                                                to:@M_PI
 //                                                          duration:5
 //                                                           reapeat:NO
-//                                                      timeFunction:nil];
-    CAAnimationGroup *aniGroup = [self getAniGroupWithArr:@[ani_RV1, ani_RV2]
-                                                 duration:totalTime + 2
-                                                   repeat:YES];
-    [pauseRightLayer addAnimation:aniGroup forKey:@"werwer"];
+    //                                                      timeFunction:nil];
+    
+    CAAnimation *ani_RV3 = [CAAnimation getBasicAniForKeypath:@"hidden"
+                                                         from:@NO
+                                                           to:@YES
+                                                     duration:0.1
+                                                      reapeat:NO
+                                                 timeFunction:nil];
+    ani_RV3.beginTime = totalTime;
+    CAAnimationGroup *pauseRightAniGroup = [self getAniGroupWithArr:@[ani_RV1, ani_RV2]//, ani_RV3]
+                                                           duration:totalTime + 2
+                                                             repeat:NO];
+    self.rightAni = pauseRightAniGroup;
+    [pauseRightLayer addAnimation:pauseRightAniGroup forKey:@"pauseRightAniGroup"];
+    self.ggggg = pauseRightAniGroup;
+    
+//    [self pauseLayer:pauseLeftLayer];
+//    [self pauseLayer:pauseRightLayer];
+//    [self pauseLayer:innerTriangle];
+//    [self pauseLayer:outterCircleLayer];
 }
 
 - (CAShapeLayer *)shapeLayerWithPath:(UIBezierPath *)path lineWidth:(CGFloat)lineWidth strokeColor:(UIColor *)strokeColor fillColor:(UIColor *)fillColor strokeStart:(CGFloat)start strokeEnd:(CGFloat)end {
@@ -307,14 +363,6 @@
     return layer;
 }
 
-- (void)setBasicAnimation:(CABasicAnimation *)animation from:(id)fromValue to:(id)toValue duration:(CFTimeInterval)duration timingFunction:(NSString *)timingFunction {
-    animation.fromValue = fromValue;
-    animation.toValue = toValue;
-    animation.duration = duration;
-    animation.fillMode = kCAFillModeForwards;
-    animation.timingFunction = [CAMediaTimingFunction functionWithName:timingFunction];
-}
-
 - (CAAnimationGroup *)getAniGroupWithArr:(NSArray *)aniArr duration:(NSTimeInterval)duration repeat:(BOOL)isRepeat {
     CAAnimationGroup *aniGroup = [CAAnimationGroup animation];
     aniGroup.animations = aniArr;
@@ -322,6 +370,7 @@
     if (isRepeat) {
         aniGroup.repeatCount = MAXFLOAT;
     }
+    aniGroup.removedOnCompletion = NO;
     aniGroup.fillMode = kCAFillModeForwards;
     return aniGroup;
     
@@ -384,6 +433,46 @@
     if (self.currentLayer) {
         self.currentLayer.strokeEnd = sender.value;
     }
+}
+
+- (void)changeStatus {
+    if (self.status) {
+        for (CALayer *layer in self.pauseToPlay) {
+            layer.hidden = YES;
+        }
+        for (CALayer *layer in self.playToPause) {
+            layer.hidden = NO;
+        }
+        [self.circleLay addAnimation:self.circleAni forKey:@"circle"];
+        [self.triangleLay addAnimation:self.triangleAni forKey:@"tirangle"];
+        self.status = 0;
+    } else {
+        for (CALayer *layer in self.playToPause) {
+            layer.hidden = YES;
+        }
+        for (CALayer *layer in self.pauseToPlay) {
+            layer.hidden = NO;
+        }
+        [self.leftLay addAnimation:self.leftAni forKey:@"left"];
+        [self.rightLay addAnimation:self.rightAni forKey:@"right"];
+        self.status = 1;
+    }
+}
+
+-(void)pauseLayer:(CALayer*)layer {
+    CFTimeInterval pausedTime = [layer convertTime:CACurrentMediaTime() fromLayer:nil];
+    layer.speed = 0.0;
+    layer.timeOffset = pausedTime;
+    layer.hidden = YES;
+}
+
+-(void)resumeLayer:(CALayer*)layer {
+    CFTimeInterval pausedTime = [layer timeOffset];
+    layer.speed = 1.0;
+    layer.timeOffset = 0.0;
+    layer.beginTime = 0.0;
+    CFTimeInterval timeSincePause = [layer convertTime:CACurrentMediaTime() fromLayer:nil] - pausedTime;
+    layer.beginTime = timeSincePause;
 }
 
 @end

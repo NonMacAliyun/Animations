@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F896CFB61D4C37680042DB85 /* CAAnimation+SettingMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = F896CFB51D4C37680042DB85 /* CAAnimation+SettingMethods.m */; };
+		F896CFBB1D4FA3CE0042DB85 /* downloadLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F896CFBA1D4FA3CE0042DB85 /* downloadLayer.m */; };
 		FAEB15D31D49DD41007DBA02 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB15D21D49DD41007DBA02 /* main.m */; };
 		FAEB15D61D49DD41007DBA02 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB15D51D49DD41007DBA02 /* AppDelegate.m */; };
 		FAEB15D91D49DD41007DBA02 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB15D81D49DD41007DBA02 /* ViewController.m */; };
@@ -20,6 +21,8 @@
 		F896CFB41D4C37680042DB85 /* CAAnimation+SettingMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CAAnimation+SettingMethods.h"; path = "Animations/Category/CAAnimation+SettingMethods.h"; sourceTree = "<group>"; };
 		F896CFB51D4C37680042DB85 /* CAAnimation+SettingMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CAAnimation+SettingMethods.m"; path = "Animations/Category/CAAnimation+SettingMethods.m"; sourceTree = "<group>"; };
 		F896CFB71D4C39E90042DB85 /* Headers.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Headers.pch; sourceTree = "<group>"; };
+		F896CFB91D4FA3CE0042DB85 /* downloadLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = downloadLayer.h; path = LayerBuilding/downloadLayer.h; sourceTree = "<group>"; };
+		F896CFBA1D4FA3CE0042DB85 /* downloadLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = downloadLayer.m; path = LayerBuilding/downloadLayer.m; sourceTree = "<group>"; };
 		FAEB15CE1D49DD41007DBA02 /* Animations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Animations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAEB15D21D49DD41007DBA02 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FAEB15D41D49DD41007DBA02 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -53,6 +56,15 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		F896CFB81D4FA3860042DB85 /* LayerBuilding */ = {
+			isa = PBXGroup;
+			children = (
+				F896CFB91D4FA3CE0042DB85 /* downloadLayer.h */,
+				F896CFBA1D4FA3CE0042DB85 /* downloadLayer.m */,
+			);
+			name = LayerBuilding;
+			sourceTree = "<group>";
+		};
 		FAEB15C51D49DD41007DBA02 = {
 			isa = PBXGroup;
 			children = (
@@ -72,6 +84,7 @@
 		FAEB15D01D49DD41007DBA02 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
+				F896CFB81D4FA3860042DB85 /* LayerBuilding */,
 				F896CFB31D4C372E0042DB85 /* Category */,
 				FAEB15D41D49DD41007DBA02 /* AppDelegate.h */,
 				FAEB15D51D49DD41007DBA02 /* AppDelegate.m */,
@@ -169,6 +182,7 @@
 				FAEB15D91D49DD41007DBA02 /* ViewController.m in Sources */,
 				FAEB15D61D49DD41007DBA02 /* AppDelegate.m in Sources */,
 				FAEB15D31D49DD41007DBA02 /* main.m in Sources */,
+				F896CFBB1D4FA3CE0042DB85 /* downloadLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
