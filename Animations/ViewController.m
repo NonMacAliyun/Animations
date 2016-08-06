@@ -13,7 +13,17 @@
 #define PauseSpringTPersent (4/31.0)
 #define PauseNoSpringTPersent (1 - 4/31.0)
 
+//时间点
+#define PlayTriangleTStart (9/33.0)
+#define PlayCircleSpeedUpTStart (13/33.0)
+#define PlaySpringTStart (25/33.0) //弹簧时段
+
+//时间段
+#define PlaySpringTPersent (9/33.0) //弹簧时段
+#define PlayNoSpringTPersent (1 - 9/33.0)  //非弹簧时段
+
 #import "ViewController.h"
+#import "UIBezierPath+CalcLength.h"
 
 /**
  *  @author NonMac, 16-07-31 20:07:42
@@ -25,8 +35,8 @@
  * 暂停 → 播放 （87 ~ 117）
  * 弹簧 87 ~ 90
  *
- *
- *
+ * 播放 → 暂停
+ * 25  9
  *
  *
  *
@@ -109,6 +119,7 @@ double totalTime = 1.3;
     CGPoint rightVLineUp = CGPointMake(center.x * 2 - triangleUpPoint.x, triangleUpPoint.y);
     CGPoint rightVLineDowm = CGPointMake(center.x * 2 - triangleDownPoint.x, pauseDownMost);
     
+    
 #pragma mark - Path
     //外部圆形路径 转 左边竖线 播放→暂停状态
     UIBezierPath *outterCirclePath = [UIBezierPath bezierPath];
@@ -119,7 +130,7 @@ double totalTime = 1.3;
     [outterCirclePath addQuadCurveToPoint:circleRightPoint controlPoint:btnRightDown];
     [outterCirclePath addQuadCurveToPoint:circleUpPoint controlPoint:btnRightUp];
     [outterCirclePath addQuadCurveToPoint:triangleUpPoint controlPoint:CGPointMake(triangleUpPoint.x, circleUpPoint.y)];
-    [outterCirclePath addLineToPoint:triangleDownPoint];
+    [outterCirclePath addLineToPoint:CGPointMake(triangleDownPoint.x, pauseDownMost)];
     
     //内部三角形 转 右边竖线 播放→暂停状态
     UIBezierPath *trianglePath = [UIBezierPath bezierPath];
@@ -207,40 +218,42 @@ double totalTime = 1.3;
     
     
 #pragma mark - Animation
-    //播放按钮 内部三角形 播放→暂停状态 动画
+    //播放按钮 内部三角形 播放→暂停状态 动画 开始：第9帧 共25帧
     CAAnimation *ani_triangle1 =
     [CAAnimation getBasicAniForKeypath:@"strokeEnd"
                                   from:@0.62
                                     to:@1
-                              duration:totalTime - 0.5
+                              duration:totalTime * 16/25.0 - 0.2
                                reapeat:NO
                           timeFunction:kCAMediaTimingFunctionDefault];
+    ani_triangle1.beginTime = totalTime * 9/25.0;
     
     CAAnimation *ani_triangle2 =
     [CAAnimation getBasicAniForKeypath:@"strokeStart"
                                   from:@0
                                     to:@0.79
-                              duration:totalTime - 0.5
+                              duration:totalTime * 16/25.0 - 0.2
                                reapeat:NO
                           timeFunction:kCAMediaTimingFunctionDefault];
+    ani_triangle2.beginTime = totalTime * 9/25.0;
     
     CAAnimation *ani_triangle3 =
     [CAAnimation getBasicAniForKeypath:@"strokeEnd"
                                   from:@1
                                     to:@0.995
-                              duration:0.5
+                              duration:0.2
                                reapeat:NO
                           timeFunction:kCAMediaTimingFunctionDefault];
-    ani_triangle3.beginTime = totalTime - 0.5;
+    ani_triangle3.beginTime = totalTime - 0.2;
     
     CAAnimation *ani_triangle4 =
     [CAAnimation getBasicAniForKeypath:@"strokeStart"
                                   from:@0.795
                                     to:@0.79
-                              duration:0.5
+                              duration:0.2
                                reapeat:NO
                           timeFunction:kCAMediaTimingFunctionDefault];
-    ani_triangle4.beginTime = totalTime - 0.5;
+    ani_triangle4.beginTime = totalTime - 0.2;
     
     CAAnimation *ani_triangle5 =
     [CAAnimation getBasicAniForKeypath:@"hidden"
@@ -249,7 +262,7 @@ double totalTime = 1.3;
                               duration:0.1
                                reapeat:NO
                           timeFunction:nil];
-    ani_triangle4.beginTime = totalTime - 0.5;
+    ani_triangle5.beginTime = totalTime - 0.2;
     
     
     CAAnimationGroup *triangleAniGroup = [self getAniGroupWithArr:@[ani_triangle1, ani_triangle2, ani_triangle3, ani_triangle4]//, ani_triangle5]
@@ -265,34 +278,58 @@ double totalTime = 1.3;
     CABasicAnimation *ani_circle1 = [CAAnimation getBasicAniForKeypath:@"strokeStart"
                                                                   from:@0
                                                                     to:@0.65
-                                                              duration:totalTime - 0.24 / (0.35/totalTime)
+                                                              duration:totalTime * 12/25.0
                                                                reapeat:NO
                                                           timeFunction:kCAMediaTimingFunctionEaseOut];
+    CABasicAnimation *ani_circle2 = [CAAnimation getBasicAniForKeypath:@"strokeEnd"
+                                                                  from:@0.65
+                                                                    to:@0.8
+                                                              duration:totalTime * 12/25.0
+                                                               reapeat:NO
+                                                          timeFunction:nil];
     
-    CABasicAnimation *ani_circle2 = [CAAnimation getBasicAniForKeypath:@"strokeStart"
+    CABasicAnimation *ani_circle3 = [CAAnimation getBasicAniForKeypath:@"strokeStart"
                                                                   from:@0.65
                                                                     to:@0.895
-                                                              duration:0.24 / (0.35/totalTime)
+                                                              duration:totalTime * 13/25.0
                                                                reapeat:NO
-                                                          timeFunction:kCAMediaTimingFunctionEaseOut];
-    ani_circle2.beginTime = totalTime - 0.24 / (0.35/totalTime);
+                                                          timeFunction:nil];
+    ani_circle3.beginTime = totalTime * 12/25.0;
     
-    CABasicAnimation *ani_circle3 = [CAAnimation getBasicAniForKeypath:@"strokeEnd"
-                                                                  from:@0.65
+    CABasicAnimation *ani_circle4 = [CAAnimation getBasicAniForKeypath:@"strokeEnd"
+                                                                  from:@0.8
                                                                     to:@1
-                                                              duration:totalTime
+                                                              duration:totalTime * 13/25.0
                                                                reapeat:NO
-                                                          timeFunction:kCAMediaTimingFunctionEaseOut];
+                                                          timeFunction:nil];
+    ani_circle4.beginTime = totalTime * 12/25.0;
     
-    CAAnimation *ani_circle4 = [CAAnimation getBasicAniForKeypath:@"hidden"
+    CABasicAnimation *ani_circle5 = [CAAnimation getBasicAniForKeypath:@"strokeStart"
+                                                                  from:@0.65
+                                                                    to:@0.895
+                                                              duration:totalTime * 13/25.0
+                                                               reapeat:NO
+                                                          timeFunction:nil];
+    ani_circle3.beginTime = totalTime * 12/25.0;
+    
+    CABasicAnimation *ani_circle6 = [CAAnimation getBasicAniForKeypath:@"strokeEnd"
+                                                                  from:@0.8
+                                                                    to:@1
+                                                              duration:totalTime * 13/25.0
+                                                               reapeat:NO
+                                                          timeFunction:nil];
+    ani_circle4.beginTime = totalTime * 12/25.0;
+    
+    
+    CAAnimation *ani_circle7 = [CAAnimation getBasicAniForKeypath:@"hidden"
                                                              from:@NO
                                                                to:@YES
                                                          duration:0.1
                                                           reapeat:NO
                                                      timeFunction:nil];
-    ani_circle4.beginTime = totalTime;
+    ani_circle5.beginTime = totalTime;
     
-    CAAnimationGroup *aniGroup_circle = [self getAniGroupWithArr:@[ani_circle1, ani_circle2, ani_circle3]//, ani_circle4]
+    CAAnimationGroup *aniGroup_circle = [self getAniGroupWithArr:@[ani_circle1, ani_circle2, ani_circle3, ani_circle4]//, ani_circle4]
                                                         duration:totalTime + 2
                                                           repeat:NO];
     self.circleAni = aniGroup_circle;
