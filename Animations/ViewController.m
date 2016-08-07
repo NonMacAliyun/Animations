@@ -8,7 +8,6 @@
 
 #define InOutScale (0.58)
 #define M_SQRT3 sqrtf(3.0) //√3（根号3）
-#define CGFloatNULL -1
 #define undulatePersent (2/11.0)
 #define PauseSpringTPersent (4/31.0)
 #define PauseNoSpringTPersent (1 - 4/31.0)
@@ -86,7 +85,7 @@ BOOL isNeedAddAnimation = NO;
     self.view.backgroundColor = [UIColor blackColor];
     self.settedColor = [UIColor colorWithRed:0 green:216/255.0 blue:1 alpha:1];
     
-    [self playAndPauseWithCenter:CGPointMake(200, 200) buttonLength:100 lineWidth:10];
+    [self playAndPauseWithCenter:CGPointMake(200, 200) buttonLength:100 lineWidth:8];
     
     
     self.status = 0;

@@ -37,4 +37,7 @@
                                     reapeat:(BOOL)isRepeat
                                timeFunction:(NSString *)timeFunction;
 
+
++ (CAAnimationGroup *)getAniGroupWithArr:(NSArray *)aniArr duration:(NSTimeInterval)duration repeat:(BOOL)isRepeat;
+
 @end

@@ -10,6 +10,8 @@
 		F896CFB61D4C37680042DB85 /* CAAnimation+SettingMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = F896CFB51D4C37680042DB85 /* CAAnimation+SettingMethods.m */; };
 		F896CFBB1D4FA3CE0042DB85 /* downloadLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F896CFBA1D4FA3CE0042DB85 /* downloadLayer.m */; };
 		F8FE56F71D555F3D002D5D5A /* UIBezierPath+CalcLength.m in Sources */ = {isa = PBXBuildFile; fileRef = F8FE56F61D555F3D002D5D5A /* UIBezierPath+CalcLength.m */; };
+		F8FE56FA1D578202002D5D5A /* PlayPauseLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F8FE56F91D578202002D5D5A /* PlayPauseLayer.m */; };
+		F8FE56FD1D578336002D5D5A /* CAShapeLayer+SettingMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = F8FE56FC1D578336002D5D5A /* CAShapeLayer+SettingMethods.m */; };
 		FAEB15D31D49DD41007DBA02 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB15D21D49DD41007DBA02 /* main.m */; };
 		FAEB15D61D49DD41007DBA02 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB15D51D49DD41007DBA02 /* AppDelegate.m */; };
 		FAEB15D91D49DD41007DBA02 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB15D81D49DD41007DBA02 /* ViewController.m */; };
@@ -26,6 +28,10 @@
 		F896CFBA1D4FA3CE0042DB85 /* downloadLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = downloadLayer.m; path = LayerBuilding/downloadLayer.m; sourceTree = "<group>"; };
 		F8FE56F51D555F3D002D5D5A /* UIBezierPath+CalcLength.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIBezierPath+CalcLength.h"; path = "Animations/Category/UIBezierPath+CalcLength.h"; sourceTree = "<group>"; };
 		F8FE56F61D555F3D002D5D5A /* UIBezierPath+CalcLength.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIBezierPath+CalcLength.m"; path = "Animations/Category/UIBezierPath+CalcLength.m"; sourceTree = "<group>"; };
+		F8FE56F81D578202002D5D5A /* PlayPauseLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayPauseLayer.h; path = LayerBuilding/PlayPauseLayer.h; sourceTree = "<group>"; };
+		F8FE56F91D578202002D5D5A /* PlayPauseLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayPauseLayer.m; path = LayerBuilding/PlayPauseLayer.m; sourceTree = "<group>"; };
+		F8FE56FB1D578336002D5D5A /* CAShapeLayer+SettingMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CAShapeLayer+SettingMethods.h"; path = "Animations/Category/CAShapeLayer+SettingMethods.h"; sourceTree = "<group>"; };
+		F8FE56FC1D578336002D5D5A /* CAShapeLayer+SettingMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CAShapeLayer+SettingMethods.m"; path = "Animations/Category/CAShapeLayer+SettingMethods.m"; sourceTree = "<group>"; };
 		FAEB15CE1D49DD41007DBA02 /* Animations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Animations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAEB15D21D49DD41007DBA02 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FAEB15D41D49DD41007DBA02 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -56,6 +62,8 @@
 				F896CFB51D4C37680042DB85 /* CAAnimation+SettingMethods.m */,
 				F8FE56F51D555F3D002D5D5A /* UIBezierPath+CalcLength.h */,
 				F8FE56F61D555F3D002D5D5A /* UIBezierPath+CalcLength.m */,
+				F8FE56FB1D578336002D5D5A /* CAShapeLayer+SettingMethods.h */,
+				F8FE56FC1D578336002D5D5A /* CAShapeLayer+SettingMethods.m */,
 			);
 			name = Category;
 			path = ..;
@@ -66,6 +74,8 @@
 			children = (
 				F896CFB91D4FA3CE0042DB85 /* downloadLayer.h */,
 				F896CFBA1D4FA3CE0042DB85 /* downloadLayer.m */,
+				F8FE56F81D578202002D5D5A /* PlayPauseLayer.h */,
+				F8FE56F91D578202002D5D5A /* PlayPauseLayer.m */,
 			);
 			name = LayerBuilding;
 			sourceTree = "<group>";
@@ -187,9 +197,11 @@
 				F8FE56F71D555F3D002D5D5A /* UIBezierPath+CalcLength.m in Sources */,
 				F896CFB61D4C37680042DB85 /* CAAnimation+SettingMethods.m in Sources */,
 				FAEB15D91D49DD41007DBA02 /* ViewController.m in Sources */,
+				F8FE56FA1D578202002D5D5A /* PlayPauseLayer.m in Sources */,
 				FAEB15D61D49DD41007DBA02 /* AppDelegate.m in Sources */,
 				FAEB15D31D49DD41007DBA02 /* main.m in Sources */,
 				F896CFBB1D4FA3CE0042DB85 /* downloadLayer.m in Sources */,
+				F8FE56FD1D578336002D5D5A /* CAShapeLayer+SettingMethods.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
