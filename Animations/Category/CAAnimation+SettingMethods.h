@@ -22,9 +22,17 @@
  *  @param timeFunction <#timeFunction description#>
  *  @return <#return value description#>
  */
+//+ (CABasicAnimation *)getBasicAniForKeypath:(NSString *)keypath
+//                                       from:(id)fromValue
+//                                         to:(id)toValue
+//                                   duration:(NSTimeInterval)duration
+//                                    reapeat:(BOOL)isRepeat
+//                               timeFunction:(NSString *)timeFunction;
+
 + (CABasicAnimation *)getBasicAniForKeypath:(NSString *)keypath
                                        from:(id)fromValue
                                          to:(id)toValue
+                                  beginTime:(NSTimeInterval)beginTime
                                    duration:(NSTimeInterval)duration
                                     reapeat:(BOOL)isRepeat
                                timeFunction:(NSString *)timeFunction;
