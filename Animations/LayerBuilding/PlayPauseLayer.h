@@ -10,4 +10,8 @@
 
 @interface PlayPauseLayer : CALayer
 
+- (instancetype)initWithCenter:(CGPoint)center buttonLength:(CGFloat)length lineWidth:(CGFloat)lineWidth lineColor:(UIColor *)lineColor aniDuration:(NSTimeInterval)totalTime;
+- (void)play;
+- (void)pause;
+
 @end

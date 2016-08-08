@@ -16,5 +16,6 @@
 #import <UIKit/UIKit.h>
 
 #import "CAAnimation+SettingMethods.h"
+#import "CAShapeLayer+SettingMethods.h"
 
 #endif /* Headers_pch */

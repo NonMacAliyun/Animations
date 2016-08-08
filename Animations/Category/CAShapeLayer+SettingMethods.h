@@ -10,4 +10,6 @@
 
 @interface CAShapeLayer (SettingMethods)
 
++ (CAShapeLayer *)shapeLayerWithPath:(UIBezierPath *)path lineWidth:(CGFloat)lineWidth strokeColor:(UIColor *)strokeColor fillColor:(UIColor *)fillColor strokeStart:(CGFloat)start strokeEnd:(CGFloat)end;
+
 @end
