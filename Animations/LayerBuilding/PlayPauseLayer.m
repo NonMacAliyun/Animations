@@ -139,10 +139,11 @@
     _rightMidPoint = CGPointMake(center.x + outterRadius, center.y);
     
     //按钮左上、左下、右上、右下的顶点
-    _leftUpPoint = CGPointMake(center.x - outterRadius, center.y - outterRadius);
-    _leftDownPoint = CGPointMake(center.x - outterRadius, center.y + outterRadius);
-    _rightUpPoint = CGPointMake(center.x + outterRadius, center.y - outterRadius);
-    _rightDownPoint = CGPointMake(center.x + outterRadius, center.y + outterRadius);
+    float persent = 0.960;
+    _leftUpPoint = CGPointMake(center.x - outterRadius * persent, center.y - outterRadius * persent);
+    _leftDownPoint = CGPointMake(center.x - outterRadius * persent, center.y + outterRadius * persent);
+    _rightUpPoint = CGPointMake(center.x + outterRadius * persent, center.y - outterRadius * persent);
+    _rightDownPoint = CGPointMake(center.x + outterRadius * persent, center.y + outterRadius * persent);
     
     //暂停弹簧最上、最下点纵坐标
     CGFloat pauseUpperMost = _triangleUpPoint.y - undulateLength;
@@ -429,7 +430,7 @@
     CABasicAnimation *ani_RV3 =
     [CAAnimation getBasicAniForKeypath:@"strokeStart"
                                   from:@0
-                                    to:@0.2
+                                    to:@0.215
                              beginTime:totalTime * PauseSpringTPersent
                               duration:totalTime * (8/31.0)
                                reapeat:NO
